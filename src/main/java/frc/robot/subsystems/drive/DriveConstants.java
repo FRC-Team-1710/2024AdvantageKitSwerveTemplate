@@ -18,12 +18,12 @@ public final class DriveConstants {
         default ->
             new DrivetrainConfig(
                 Units.inchesToMeters(2.0),
-                Units.inchesToMeters(26.0),
-                Units.inchesToMeters(26.0),
+                Units.inchesToMeters(20.75),
+                Units.inchesToMeters(20.75),
                 Units.feetToMeters(12.16),
                 Units.feetToMeters(21.32),
-                7.93,
-                29.89);
+                7.93, // TODO: figure this out
+                29.89); 
       };
   public static final double wheelRadius = Units.inchesToMeters(2.0);
   public static final Translation2d[] moduleTranslations =
@@ -46,7 +46,7 @@ public final class DriveConstants {
       };
   public static final Matrix<N3, N1> stateStdDevs =
       switch (Constants.getRobot()) {
-        default -> new Matrix<>(VecBuilder.fill(0.003, 0.003, 0.0002));
+        default -> new Matrix<>(VecBuilder.fill(0.003, 0.003, 0.0002)); // i think this is trust levels for x, y, rot
       };
   public static final double xyStdDevCoefficient =
       switch (Constants.getRobot()) {
@@ -60,7 +60,7 @@ public final class DriveConstants {
   public static final int gyroID = 13;
 
   // Turn to "" for no canbus name
-  public static final String canbus = "chassis";
+  public static final String canbus = "uno";
 
   public static ModuleConfig[] moduleConfigs =
       switch (Constants.getRobot()) {
@@ -68,27 +68,27 @@ public final class DriveConstants {
             new ModuleConfig[] {
               new ModuleConfig(
                   1,
-                  2,
-                  9,
-                  Rotation2d.fromRotations(-0.383).plus(Rotation2d.fromDegrees(180)),
-                  true),
-              new ModuleConfig(
                   3,
-                  4,
-                  10,
-                  Rotation2d.fromRotations(-0.251).plus(Rotation2d.fromDegrees(180)),
+                  2,
+                  Rotation2d.fromDegrees(111.7).plus(Rotation2d.fromDegrees(180)),
                   true),
               new ModuleConfig(
-                  5,
+                  4,
                   6,
-                  11,
-                  Rotation2d.fromRotations(-0.057).plus(Rotation2d.fromDegrees(180)),
+                  5,
+                  Rotation2d.fromDegrees(-79.1).plus(Rotation2d.fromDegrees(180)),
                   true),
               new ModuleConfig(
                   7,
+                  9,
                   8,
+                  Rotation2d.fromDegrees(-80.1).plus(Rotation2d.fromDegrees(180)),
+                  true),
+              new ModuleConfig(
+                  10,
                   12,
-                  Rotation2d.fromRotations(-0.470).plus(Rotation2d.fromDegrees(180)),
+                  11,
+                  Rotation2d.fromDegrees(111.44).plus(Rotation2d.fromDegrees(180)),
                   true)
             };
         case SIMBOT -> {
@@ -103,11 +103,11 @@ public final class DriveConstants {
       switch (Constants.getRobot()) {
         case COMPBOT ->
             new ModuleConstants(
-                0.1,
-                0.13,
-                0.1,
+                0.072013,
+                2.3106,
+                0.36,
                 0.0,
-                10.0,
+                1.0,
                 0.0,
                 Mk4iReductions.L2.reduction,
                 Mk4iReductions.TURN.reduction);
@@ -129,7 +129,7 @@ public final class DriveConstants {
         case SIMBOT -> new HeadingControllerConstants(3.0, 0.0);
       };
 
-  public static final PIDConstants PPtranslationConstants =
+  public static final PIDConstants PPtranslationConstants = //PP == PathPlanner
       switch (Constants.getRobot()) {
         case COMPBOT -> new PIDConstants(10, 0.0, 0.0);
         case SIMBOT -> new PIDConstants(10, 0.0, 0.0);
