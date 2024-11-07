@@ -17,13 +17,13 @@ public final class DriveConstants {
       switch (Constants.getRobot()) {
         default ->
             new DrivetrainConfig(
-                Units.inchesToMeters(2.0),
+                Units.inchesToMeters(2.0), // Wheel radius
+                Units.inchesToMeters(20.75), // Robot dimensions
                 Units.inchesToMeters(20.75),
-                Units.inchesToMeters(20.75),
-                Units.feetToMeters(12.16),
+                Units.feetToMeters(12.16), // Field dimensions
                 Units.feetToMeters(21.32),
-                7.93, // TODO: figure this out
-                29.89); 
+                9.42478, // TODO: make sure these numbers are the ones in pathplanner
+                12.5664);
       };
   public static final double wheelRadius = Units.inchesToMeters(2.0);
   public static final Translation2d[] moduleTranslations =
@@ -46,7 +46,10 @@ public final class DriveConstants {
       };
   public static final Matrix<N3, N1> stateStdDevs =
       switch (Constants.getRobot()) {
-        default -> new Matrix<>(VecBuilder.fill(0.003, 0.003, 0.0002)); // i think this is trust levels for x, y, rot
+        default ->
+            new Matrix<>(
+                VecBuilder.fill(
+                    0.003, 0.003, 0.0002)); // I think these are trust levels for x, y, and rotation respectively
       };
   public static final double xyStdDevCoefficient =
       switch (Constants.getRobot()) {
@@ -67,23 +70,11 @@ public final class DriveConstants {
         case COMPBOT ->
             new ModuleConfig[] {
               new ModuleConfig(
-                  1,
-                  3,
-                  2,
-                  Rotation2d.fromDegrees(111.7).plus(Rotation2d.fromDegrees(180)),
-                  true),
+                  1, 3, 2, Rotation2d.fromDegrees(111.7).plus(Rotation2d.fromDegrees(180)), true),
               new ModuleConfig(
-                  4,
-                  6,
-                  5,
-                  Rotation2d.fromDegrees(-79.1).plus(Rotation2d.fromDegrees(180)),
-                  true),
+                  4, 6, 5, Rotation2d.fromDegrees(-79.1).plus(Rotation2d.fromDegrees(180)), true),
               new ModuleConfig(
-                  7,
-                  9,
-                  8,
-                  Rotation2d.fromDegrees(-80.1).plus(Rotation2d.fromDegrees(180)),
-                  true),
+                  7, 9, 8, Rotation2d.fromDegrees(-80.1).plus(Rotation2d.fromDegrees(180)), true),
               new ModuleConfig(
                   10,
                   12,
@@ -129,7 +120,7 @@ public final class DriveConstants {
         case SIMBOT -> new HeadingControllerConstants(3.0, 0.0);
       };
 
-  public static final PIDConstants PPtranslationConstants = //PP == PathPlanner
+  public static final PIDConstants PPtranslationConstants = // PP == PathPlanner
       switch (Constants.getRobot()) {
         case COMPBOT -> new PIDConstants(10, 0.0, 0.0);
         case SIMBOT -> new PIDConstants(10, 0.0, 0.0);
